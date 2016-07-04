@@ -1,0 +1,5 @@
+platform:ios,'7.0'
+pod 'BabyBluetooth','~> 0.7.0'
+pod 'MJRefresh', '~> 2.4.12'
+pod 'SDWebImage', '~> 3.7.3'
+pod 'AFNetworking', '~> 3.1.0'

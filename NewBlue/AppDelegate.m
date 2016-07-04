@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "RootViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -19,7 +20,7 @@
 	// Override point for customization after application launch.
 	
 	
-	ViewController *root = [[ViewController alloc]init];
+	RootViewController *root = [[RootViewController alloc]init];
 	UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:root];
 	self.window.rootViewController = nav;
 	

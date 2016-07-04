@@ -26,12 +26,21 @@
 	[super viewDidLoad];
 	self.view.backgroundColor = [UIColor whiteColor];
 	self.title = @"bluelist";
+    
+    
+    _bleManager = [BLEManager defaultManager];//初始化蓝牙管理实例对象
+    _bleManager.delegate = self;//遵循协议
+
+    
 	//设置tableview
 	[self setTableView];
 	
-	
-	//搜索蓝牙
-	[self scanBlueToothEquipment];
+    
+    //搜索蓝牙
+    [self performSelector:@selector(scanBlueToothEquipment) withObject:nil afterDelay:0.1f];
+
+    
+    
 }
 
 
@@ -49,6 +58,7 @@
 	
 	//初始化数据源
 	blueNameDataSource = [[NSMutableArray alloc]init];
+    
 	
 	
 }
@@ -83,11 +93,8 @@
 #pragma mark --进入搜索蓝牙状态
 - (void)scanBlueToothEquipment
 {
-	_bleManager = [BLEManager defaultManager];//初始化蓝牙管理实例对象
-	_bleManager.delegate = self;//遵循协议
-
-	[_bleManager scanDeviceTime:10];//开始搜索
-	[SVProgressHUD show];
+       	[_bleManager scanDeviceTime:10];//开始搜索
+        [SVProgressHUD show];
 }
 #pragma mark --接受蓝牙搜索结果回调
 - (void)scanDeviceRefrash:(NSMutableArray *)array
@@ -95,7 +102,20 @@
 	[SVProgressHUD dismiss];
 	[blueNameDataSource addObjectsFromArray:array];
 	[blueTableView reloadData];
+    
+    
+    for (DeviceInfo *info in array) {
+        CBPeripheral* device = [_bleManager getDeviceByUUID:info.UUIDString];//取出device
+        [_bleManager connectToDevice:device];//链接设备
+    }
+    
 }
+
+
+
+
+
+
 
 #pragma mark --点解蓝牙名称链接蓝牙
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,18 +129,34 @@
 #pragma mark --连接设备成功回调
 - (void)connectDeviceSuccess:(CBPeripheral *)device error:(NSError *)error
 {
+    
+    
+    [SVProgressHUD dismiss];
 	NSString* string = nil;
 	//验证，链接成功的是否为存在于扫描结果列表内的设备
 	for (DeviceInfo* info in blueNameDataSource) {
 		if ([info.UUIDString isEqualToString:device.identifier.UUIDString]) {
 			string = info.macAddrss;
+            
+            
+            //将设备信息存入沙盒
+            [[NSUserDefaults standardUserDefaults] setObject:info.UUIDString forKey:@"DeviceInfo"];
+            
 			break;
 		}
 	}
+    
+    
+    
+    
+    
 	[SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@ 已连接",string]];//提示已链接
 	//？？？
 	[[BLEManager defaultManager] enableNotify2000ServiceDevice:device withcharacteristicUUID:0x2005];
 	[[BLEManager defaultManager] sendData:@"F041" to2000ServiceDevice:device WithCharacteristic:0x2005 responseState:NO];
+    
+    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark --连接设备失败回调
 - (void)didDisconnectDevice:(CBPeripheral *)device error:(NSError *)error {

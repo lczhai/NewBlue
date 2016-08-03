@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanViewController">
+            <connections>
+                <outlet property="deviceTableView" destination="CR6-BX-kUc" id="wfb-gt-nyI"/>
+                <outlet property="scanButton" destination="DXc-O3-mgg" id="PXB-tl-tD3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXc-O3-mgg">
+                    <rect key="frame" x="3" y="376" width="314" height="54"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="54" id="W7z-71-naJ"/>
+                    </constraints>
+                    <state key="normal" title="SCAN"/>
+                    <connections>
+                        <action selector="clickScanButton:" destination="-1" eventType="touchUpInside" id="ZtD-RP-60b"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CR6-BX-kUc">
+                    <rect key="frame" x="0.0" y="64" width="320" height="304"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="SLE-gA-dGw"/>
+                        <outlet property="delegate" destination="-1" id="r8Z-2Q-y3Y"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="DXc-O3-mgg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="3" id="3vv-Nv-xK2"/>
+                <constraint firstItem="CR6-BX-kUc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="99E-gP-hoc"/>
+                <constraint firstAttribute="bottom" secondItem="DXc-O3-mgg" secondAttribute="bottom" constant="50" id="Qgk-fr-alx"/>
+                <constraint firstItem="DXc-O3-mgg" firstAttribute="top" secondItem="CR6-BX-kUc" secondAttribute="bottom" constant="8" id="REY-Fg-f2I"/>
+                <constraint firstAttribute="trailing" secondItem="DXc-O3-mgg" secondAttribute="trailing" constant="3" id="f8x-A4-fgf"/>
+                <constraint firstItem="CR6-BX-kUc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jcD-XS-0gR"/>
+                <constraint firstAttribute="trailing" secondItem="CR6-BX-kUc" secondAttribute="trailing" id="k7o-4N-PYg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="417" y="374"/>
+        </view>
+    </objects>
+</document>
